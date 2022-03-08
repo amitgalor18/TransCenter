@@ -123,6 +123,7 @@ def get_args_parser():
     # dataset parameters
     parser.add_argument('--dataset_file', default='mot17')
     parser.add_argument('--data_dir', default='MOT17', type=str)
+    parser.add_argument('--custom', default=None)
 
     parser.add_argument('--coco_panargsic_path', type=str)
     parser.add_argument('--remove_difficult', action='store_true')
@@ -264,7 +265,8 @@ def main(tracktor, reid):
     main_args.private = False
 
     # input output shapes
-    ds = MOT17_val(main_args, 'test')
+    ds = MOT17_val(main_args, 'train') #Amit: chose train instead of test to see gt score
+    custom_seq = main_args.custom #Amit: evaluate one sequence for debugging/analysis
 
     main_args.input_h, main_args.input_w = ds.default_resolution[0], ds.default_resolution[1]
     print(main_args.input_h, main_args.input_w)
@@ -304,7 +306,7 @@ def main(tracktor, reid):
 
     models = [
         # "./model_zoo/MOT17_fromCoCo.pth",
-        "./model_zoo/MOT17_fromCH.pth"
+        curr_pth + "/model_zoo/MOT17_fromCH.pth"
     ]
     output_dirs = [
         # curr_pth + '/test_models/mot17_fromCoCo_test_pub/',
@@ -324,6 +326,10 @@ def main(tracktor, reid):
         model.eval()
         for seq, seq_n in data_loader:
             seq_name = seq_n[0]
+            if custom_seq is not None:
+                print("custom seq chosen: ", custom_seq)
+                if seq_name != custom_seq:
+                    continue
             print("seq_name: ", seq_name)
 
             if seq_num not in seq_name:
@@ -395,7 +401,8 @@ def main(tracktor, reid):
                     frame_offset = int(frame_name[:-4])
                     print("frame offset : ", frame_offset)
 
-                print("step frame: ", int(frame_name[:-4]))
+                if int(frame_name[:-4]) % 20 == 0: #Amit: added to lighten the log
+                    print("step frame: ", int(frame_name[:-4]))
 
                 batch['frame_name'] = frame_name
                 batch['video_name'] = seq_name
