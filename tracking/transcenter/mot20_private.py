@@ -131,7 +131,8 @@ def get_args_parser():
     # dataset parameters
     parser.add_argument('--dataset_file', default='mot20')
     parser.add_argument('--data_dir', default='YourMOT20Path', type=str)
-
+    parser.add_argument('--custom', default=None)
+    
 
     parser.add_argument('--coco_panargsic_path', type=str)
     parser.add_argument('--remove_difficult', action='store_true')
@@ -274,7 +275,8 @@ def main(tracktor, reid):
     main_args.pre_hm = True
     main_args.private = True
     # input output shapes
-    ds = MOT20_val(main_args, 'test')
+    ds = MOT20_val(main_args, 'train') #Amit: chose train instead of test to evaluate with gt
+    custom_seq = main_args.custom #Amit: evaluate one sequence for debugging/analysis
 
     main_args.input_h, main_args.input_w = ds.default_resolution[0], ds.default_resolution[1]
     print(main_args.input_h, main_args.input_w)
@@ -313,7 +315,7 @@ def main(tracktor, reid):
 
     models = [
         # "./model_zoo/MOT20_fromCoCo.pth",
-        "./model_zoo/MOT20_fromCH.pth"
+        curr_pth + "/model_zoo/MOT20_fromCH.pth"
     ]
     output_dirs = [
         # curr_pth + '/test_models/mot20_fromCoCo_test_private_correct_bug/',
@@ -334,6 +336,10 @@ def main(tracktor, reid):
         model.eval()
         for seq, seq_n in data_loader:
             seq_name = seq_n[0]
+            if custom_seq is not None:
+                print("custom seq chosen: ", custom_seq)
+                if seq_name != custom_seq:
+                    continue
             print("seq_name: ", seq_name)
 
             if seq_num not in seq_name:
@@ -408,7 +414,8 @@ def main(tracktor, reid):
                     frame_offset = int(frame_name[:-4])
                     print("frame offset : ", frame_offset)
 
-                print("step frame: ", int(frame_name[:-4]))
+                if int(frame_name[:-4]) % 20 == 0:
+                    print("step frame: ", int(frame_name[:-4]))
 
                 batch['frame_name'] = frame_name
                 batch['video_name'] = seq_name

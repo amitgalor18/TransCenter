@@ -33,7 +33,7 @@ import numpy as np
 import json
 import cv2
 
-DATA_PATH = 'YourMOT17Path'
+DATA_PATH = '/data/MOT17/'
 OUT_PATH = DATA_PATH + 'annotations_onlySDP/'
 SPLITS = ['train_half', 'val_half', 'train', 'test']
 HALF_VIDEO = True

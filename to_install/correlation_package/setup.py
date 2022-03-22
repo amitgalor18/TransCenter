@@ -45,8 +45,8 @@ nvcc_args = [
     '-gencode', 'arch=compute_70,code=sm_70',
     '-gencode', 'arch=compute_70,code=compute_70',
     '-gencode', 'arch=compute_75,code=compute_75',
-    '-gencode', 'arch=compute_80,code=compute_80',
-    '-gencode', 'arch=compute_86,code=compute_86',
+   # '-gencode', 'arch=compute_80,code=compute_80',
+   # '-gencode', 'arch=compute_86,code=compute_86',
 
 ]
 
