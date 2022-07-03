@@ -270,7 +270,7 @@ def main(tracktor):
                 # reset tracker #
                 tracker.reset()
                 # update inactive patience according to framerate
-                seq_info_path = os.path.join(main_args.data_dir, "train", video_name, 'seqinfo.ini')
+                seq_info_path = os.path.join(main_args.data_dir, "train", video_name, 'seqinfo.ini') #TODO: change to "train" when running on train/val
                 print("seq_info_path ", seq_info_path)
                 assert os.path.exists(seq_info_path)
                 with open(seq_info_path, 'r') as f:
@@ -309,6 +309,7 @@ def main(tracktor):
         if not os.path.exists(output_dir + "txt/" + video_name + '.txt'):
             # save results #
             results = tracker.get_results()
+            print(f"Runtime for {video_name}: {time.time() - start :.2f} s.")
             print(f"Tracks found: {len(results)}")
             write_results(results, tracktor['output_dir'], seq_name=video_name, frame_offset=frame_offset)
 
