@@ -182,7 +182,7 @@ def main(tracktor):
     main_args.iou_recover = True
 
     device = torch.device(main_args.device)
-    ds = GenericDataset_val(root=main_args.data_dir, valset='val', select_seq='SDP', train_ratio=0.6667) #Amit: added train_ratio of 1 to validate over all the seq and not only last 0.25
+    ds = GenericDataset_val(root=main_args.data_dir, valset='val', select_seq='SDP', train_ratio=1) #Amit: added train_ratio of 1 to validate over all the seq and not only last 0.25
 
     ds.default_resolution[0], ds.default_resolution[1] = main_args.input_h, main_args.input_w
     print(main_args.input_h, main_args.input_w)
