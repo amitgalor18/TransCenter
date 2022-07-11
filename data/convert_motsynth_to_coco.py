@@ -89,9 +89,9 @@ if __name__ == '__main__':
         out['images'].append(image_info)
       print('{}: {} images'.format(seq, num_images))
       if split != 'test':
-        det_path = seq_path + 'det/det.txt'
+        # det_path = seq_path + 'det/det.txt'
         anns = np.loadtxt(ann_path, dtype=np.float32, delimiter=',')
-        dets = np.loadtxt(det_path, dtype=np.float32, delimiter=',')
+        # dets = np.loadtxt(det_path, dtype=np.float32, delimiter=',')
         if CREATE_SPLITTED_ANN and ('half' in split):
           anns_out = np.array([anns[i] for i in range(anns.shape[0]) if \
             int(anns[i][0]) - 1 >= image_range[0] and \
@@ -105,19 +105,19 @@ if __name__ == '__main__':
               int(o[0]),int(o[1]),int(o[2]),int(o[3]),int(o[4]),int(o[5]),
               int(o[6]),int(o[7]),o[8]))
           fout.close()
-        if CREATE_SPLITTED_DET and ('half' in split):
-          dets_out = np.array([dets[i] for i in range(dets.shape[0]) if \
-            int(dets[i][0]) - 1 >= image_range[0] and \
-            int(dets[i][0]) - 1 <= image_range[1]], np.float32)
-          dets_out[:, 0] -= image_range[0]
-          det_out = seq_path + '/det/det_{}.txt'.format(split)
-          dout = open(det_out, 'w')
-          for o in dets_out:
-            dout.write(
-              '{:d},{:d},{:.1f},{:.1f},{:.1f},{:.1f},{:.6f}\n'.format(
-              int(o[0]),int(o[1]),float(o[2]),float(o[3]),float(o[4]),float(o[5]),
-              float(o[6])))
-          dout.close()
+        # if CREATE_SPLITTED_DET and ('half' in split):
+          # dets_out = np.array([dets[i] for i in range(dets.shape[0]) if \
+            # int(dets[i][0]) - 1 >= image_range[0] and \
+            # int(dets[i][0]) - 1 <= image_range[1]], np.float32)
+          # dets_out[:, 0] -= image_range[0]
+          # det_out = seq_path + '/det/det_{}.txt'.format(split)
+          # dout = open(det_out, 'w')
+          # for o in dets_out:
+            # dout.write(
+              # '{:d},{:d},{:.1f},{:.1f},{:.1f},{:.1f},{:.6f}\n'.format(
+              # int(o[0]),int(o[1]),float(o[2]),float(o[3]),float(o[4]),float(o[5]),
+              # float(o[6])))
+          # dout.close()
 
         print(' {} ann images'.format(int(anns[:, 0].max())))
         for i in range(anns.shape[0]):
