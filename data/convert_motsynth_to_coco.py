@@ -35,10 +35,10 @@ import cv2
 
 # Use the same script for MOT16
 # DATA_PATH = '../../data/mot16/'
-DATA_PATH = 'YourMOT20path'
-DATA_PATH = 'YourMOT20path'
+DATA_PATH = '../MOTSynth/'
+# DATA_PATH = 'YourMOT20path'
 OUT_PATH = DATA_PATH + 'annotations/'
-SPLITS = ['train_half', 'val_half', 'train', 'test']
+SPLITS = ['train_half', 'val_half', 'train']  #I use mot17 as test set for motsynth
 HALF_VIDEO = True
 CREATE_SPLITTED_ANN = True
 CREATE_SPLITTED_DET = True
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     for seq in sorted(seqs):
       if '.DS_Store' in seq:
         continue
-      if 'MOT20' not in DATA_PATH:
+      if 'MOTSynth' not in DATA_PATH:
         continue
       video_cnt += 1
       out['videos'].append({
