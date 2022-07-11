@@ -41,7 +41,7 @@ OUT_PATH = DATA_PATH + 'annotations/'
 SPLITS = ['train_half', 'val_half', 'train']  #I use mot17 as test set for motsynth
 HALF_VIDEO = True
 CREATE_SPLITTED_ANN = True
-CREATE_SPLITTED_DET = True
+CREATE_SPLITTED_DET = False #True
 
 if __name__ == '__main__':
   for split in SPLITS:
