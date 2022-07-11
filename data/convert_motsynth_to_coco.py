@@ -35,7 +35,7 @@ import cv2
 
 # Use the same script for MOT16
 # DATA_PATH = '../../data/mot16/'
-DATA_PATH = '../MOTSynth/'
+DATA_PATH = './MOTSynth/'
 # DATA_PATH = 'YourMOT20path'
 OUT_PATH = DATA_PATH + 'annotations/'
 SPLITS = ['train_half', 'val_half', 'train']  #I use mot17 as test set for motsynth
