@@ -469,6 +469,7 @@ def save_on_master(*args, **kwargs):
 def init_distributed_mode(args):
     if 'RANK' in os.environ and 'WORLD_SIZE' in os.environ:
         args.rank = int(os.environ["RANK"])
+        print("world_size is in environ. rank:", args.rank) #TODO: remove after bug is fixed
         args.world_size = int(os.environ['WORLD_SIZE'])
         args.gpu = int(os.environ['LOCAL_RANK'])
         args.dist_url = 'env://'
@@ -490,6 +491,8 @@ def init_distributed_mode(args):
         args.world_size = ntasks
         args.rank = proc_id
         args.gpu = proc_id % num_gpus
+        print("SLURM_PROCID in environ. rank:", args.rank) #TODO: remove after bug is fixed
+        print("gpu:", args.gpu) #TODO: remove after bug is fixed
     else:
         print('Not using distributed mode')
         args.distributed = False
