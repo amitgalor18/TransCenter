@@ -472,6 +472,7 @@ def init_distributed_mode(args):
         print("world_size is in environ. rank:", args.rank) #TODO: remove after bug is fixed
         args.world_size = int(os.environ['WORLD_SIZE'])
         args.gpu = int(os.environ['LOCAL_RANK'])
+        print("gpus:", args.gpu) #TODO: remove after bug is fixed
         args.dist_url = 'env://'
         os.environ['LOCAL_SIZE'] = str(torch.cuda.device_count())
     elif 'SLURM_PROCID' in os.environ:
@@ -504,6 +505,7 @@ def init_distributed_mode(args):
     args.dist_backend = 'nccl'
     print('| distributed init (rank {}): {}'.format(
         args.rank, args.dist_url), flush=True)
+    print("worldsize:", args.world_size)    #TODO: remove after bug is fixed
     torch.distributed.init_process_group(backend=args.dist_backend, init_method=args.dist_url,
                                          world_size=args.world_size, rank=args.rank)
     torch.distributed.barrier()
