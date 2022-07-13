@@ -54,6 +54,7 @@ if __name__ == '__main__':
            'categories': [{'id': 1, 'name': 'pedestrian'}],
            'videos': []}
     seqs = os.listdir(data_path)
+    print(seqs)
     image_cnt = 0
     ann_cnt = 0
     video_cnt = 0
