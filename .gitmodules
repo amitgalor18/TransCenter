@@ -1,0 +1,3 @@
+[submodule "StrongSORT"]
+	path = StrongSORT
+	url = ./StrongSORT/
