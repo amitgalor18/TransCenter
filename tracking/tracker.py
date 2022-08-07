@@ -138,7 +138,7 @@ class Tracker:
         self.pre_encoder_pos_encoding = None
         self.flow = None
         self.obj_detect.masks_flatten = None
-        self.gmc = GMC(method='file', verbose=[seq_name, False]) #Amit: added for camera correction
+        # self.gmc = GMC(method='file', verbose=[seq_name, False]) #Amit: added for camera correction
 
         if hard:
             self.track_num = 0
@@ -318,6 +318,9 @@ class Tracker:
 
                     # update u_track here
                     u_track = [track_indices[t_idx] for t_idx in u_track_second]
+                    if len(u_detection_second) > 0:
+                        for i in u_detection_second:
+                            detection_list_reid.append(detection_list_second[i])
 
                     if matches.shape[0] > 0:
                         second_det_feats = F.grid_sample(reid_feats,

@@ -49,7 +49,7 @@ torch.set_grad_enabled(False)
 import time
 from StrongSORT.AFLink.AppFreeLink import *
 from StrongSORT.GSI import GSInterpolation
-from BOTSORT.tracker.gmc import GMC
+# from BOTSORT.tracker.gmc import GMC
 
 
 torch.backends.cudnn.benchmark = True
