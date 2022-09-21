@@ -201,12 +201,12 @@ def main(tracktor):
                              pin_memory=True, collate_fn=collate_fn)
 
     models = [
-     "./model_zoo/MOT20_coco.pth",
+    #  "./model_zoo/MOT20_coco.pth",
      "./model_zoo/MOT20_ch.pth",
     ]
     output_dirs = [
-        curr_pth + '/test_models/MOT20_test_coco_pub/',
-        curr_pth + '/test_models/MOT20_test_ch_pub/',
+        # curr_pth + '/test_models/MOT20_test_coco_pub/',
+        curr_pth + '/test_models/' + main_args.output_dir #MOT20_test_ch_pub/',
     ]
 
     for model_dir, output_dir in zip(models, output_dirs):
