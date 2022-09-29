@@ -175,7 +175,7 @@ def main(tracktor):
     main_args.fuse_scores = True
     main_args.iou_recover = True
     device = torch.device(main_args.device)
-    ds = GenericDataset_val(root=main_args.data_dir, valset='test', select_seq='')
+    ds = GenericDataset_val(root=main_args.data_dir, valset='test', select_seq='', train_ratio=1)
 
     ds.default_resolution[0], ds.default_resolution[1] = main_args.input_h, main_args.input_w
     print(main_args.input_h, main_args.input_w)
@@ -201,12 +201,12 @@ def main(tracktor):
     data_loader = DataLoader(ds, 1, shuffle=False, drop_last=False, num_workers=8,
                              pin_memory=True, collate_fn=collate_fn)
     models = [
-     "./model_zoo/MOT17_coco.pth",
+    #  "./model_zoo/MOT17_coco.pth",
      "./model_zoo/MOT17_ch.pth",
     ]
     output_dirs = [
-        curr_pth + '/test_models/MOT17_test_coco_pub/',
-        curr_pth + '/test_models/MOT17_test_ch_pub/',
+        # curr_pth + '/test_models/MOT17_test_coco_pub/',
+        curr_pth + '/test_models/' + main_args.output_dir   #MOT17_test_ch_pub/',
     ]
 
     for model_dir, output_dir in zip(models, output_dirs):
