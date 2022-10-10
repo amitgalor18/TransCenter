@@ -171,7 +171,7 @@ def main(tracktor):
     main_args.tracking = True
     main_args.noprehm = True
     device = torch.device(main_args.device)
-    ds = GenericDataset_val(root=main_args.data_dir, valset='test', select_seq='')
+    ds = GenericDataset_val(root=main_args.data_dir, valset='test', select_seq='', train_ratio=1)
 
     ds.default_resolution[0], ds.default_resolution[1] = main_args.input_h, main_args.input_w
     print(main_args.input_h, main_args.input_w)
@@ -269,8 +269,9 @@ def main(tracktor):
 
             # starts with 0 #
             pub_det = pub_dets[int(im_name[:-4]) - 1]
-
-            print("step frame: ", im_name)
+            
+            if int(im_name[:-4]) % 20 ==0: #Amit: added to lighten the log
+                print("step frame: ", im_name)
 
             batch = {'frame_name': im_name, 'video_name': video_name, 'img': orig_img.to(device),
                      'samples': samples[0].to(device), 'orig_size': orig_size.unsqueeze(0).to(device),
@@ -301,6 +302,7 @@ def main(tracktor):
         if not os.path.exists(output_dir + "txt/" + video_name + '.txt'):
             # save results #
             results = tracker.get_results()
+            print(f"Runtime for {video_name}: {time.time() - start :.2f} s.")
             print(f"Tracks found: {len(results)}")
             write_results(results, tracktor['output_dir'], seq_name=video_name, frame_offset=frame_offset)
 
